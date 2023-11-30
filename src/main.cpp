@@ -26,7 +26,7 @@
 #include "OpenSans14b.h"
 
 
-// enum Language { ENGLISH, SPANISH, FRENCH, GERMAN };  // Add more languages as needed
+// enum Language { ENGLISH, SPANISH, FRENCH, GERMAN };
 Language currentLanguage = ENGLISH;
 
 /**
@@ -323,7 +323,7 @@ void switchLanguage() {
     if (buttonState == LOW) {
         Serial.println("Second button pressed");
         currentLanguage = static_cast<Language>((currentLanguage + 1) % (GERMAN + 1));
-        display_disability(DISABILITY_VISUAL, currentLanguage);
+        display_disability(DISABILITY_DEMO, currentLanguage);
         
     }
 }
@@ -354,7 +354,7 @@ void setup() {
         pressed_wakeup_btn_index++;
         String message = String("Woken up from deepsleep times: ");
         message.concat(String(pressed_wakeup_btn_index));
-        display_disability(DISABILITY_VISUAL, currentLanguage);
+        display_disability(DISABILITY_DEMO, currentLanguage);
         // display_center_message_with_disability(DISABILITY_VISUAL);
 
     } else {
@@ -364,7 +364,7 @@ void setup() {
         const char* form =  ("THROTTLE VALUE\n eRPM\n Voltage\n Current\n Temperature\n Debug:   \n");
 
         const char* message = "Hello! You just turned me on.\nIn 30s I will go to deepsleep";
-        display_disability(DISABILITY_VISUAL, currentLanguage);
+        display_disability(DISABILITY_DEMO, currentLanguage);
         // display_full_screen_left_aligned_text_with_disability(DISABILITY_VISUAL);
 
     }
@@ -381,14 +381,14 @@ void loop()
 
     if (esp_timer_get_time() > maxTimeRunning) {
         Serial.println("Max runtime of 30s reached. Forcing deepsleep now to save energy");
-        display_disability(DISABILITY_VISUAL, currentLanguage);
+        display_disability(DISABILITY_DEMO, currentLanguage);
         delay(1500);
 
         start_deep_sleep_with_wakeup_sources();
     }
 
-    // Check and switch language when the button is pressed
+    // switch language when the button is pressed
     switchLanguage();
 
-    delay(500);  // Add delay to avoid rapid state changes
+    delay(500);  //  delay to avoid rapid state changes
 }
